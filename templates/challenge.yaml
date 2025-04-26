@@ -1,0 +1,11 @@
+name: "Basic SQL Injection"
+category: "Web"
+author: "John Smith"
+points: 100
+difficulty: "Easy"
+description: "Find a way to log in as admin! Connect to http://example.com:8080."
+tags:
+  - web
+  - sql
+connection_info: "http://example.com:8080"
+flag_format: "flag{.*}"
