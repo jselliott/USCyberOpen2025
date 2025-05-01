@@ -9,7 +9,7 @@ CHALLENGES_DIR = 'challenges'
 def get_changed_files():
     # Only get added or modified files
     result = subprocess.run(
-        ['git', 'diff', '--name-only', '--diff-filter=AM', 'origin/main...HEAD'],
+        ['git', 'diff', '--name-only', '--diff-filter=AM', 'origin/main'],
         stdout=subprocess.PIPE,
         check=True
     )
