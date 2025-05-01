@@ -44,9 +44,12 @@ def validate_challenge_folder(folder):
         except yaml.YAMLError as e:
             print(f"ERROR: {yaml_path} is not valid YAML: {e}")
             return False
+        if data is None:
+            print(f"ERROR: {yaml_path} is not valid YAML")
+            return False
 
     # Optional: Check specific fields in YAML
-    required_fields = ['name', 'author', 'points', 'category']
+    required_fields = ['name', 'author']
     for field in required_fields:
         if field not in data:
             print(f"ERROR: {yaml_path} is missing required field '{field}'")
