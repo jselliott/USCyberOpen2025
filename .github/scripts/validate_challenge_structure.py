@@ -45,7 +45,7 @@ def validate_challenge_folder(folder):
             print(f"ERROR: {yaml_path} is not valid YAML: {e}")
             return False
         if data is None:
-            print(f"ERROR: {yaml_path} is not valid YAML: {e}")
+            print(f"ERROR: {yaml_path} is not valid YAML")
             return False
 
     # Optional: Check specific fields in YAML
