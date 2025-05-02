@@ -4,9 +4,6 @@ on:
   pull_request:
     paths:
       - 'challenges/**'
-    paths-ignore:
-      - '.github/**'
-
 jobs:
   validate:
     runs-on: ubuntu-latest
