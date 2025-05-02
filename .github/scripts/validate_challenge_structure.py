@@ -73,6 +73,9 @@ def validate_challenge_folder(folder):
         return False
 
     files = list_files_one_level(folder)
+    
+    print(files)
+    
     missing = [f for f in REQUIRED_FILES if f not in files]
     if missing:
         print(f"ERROR: {folder} is missing required files: {', '.join(missing)}")
