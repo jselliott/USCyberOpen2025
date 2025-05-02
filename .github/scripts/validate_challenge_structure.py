@@ -43,7 +43,7 @@ def validate_challenge_yaml(data):
                       'type']
 
     required_for_type = {
-        'http': ["link"]
+        'http': ["link"],
         'nc': ['host','port'],
         'static':[]
     }
