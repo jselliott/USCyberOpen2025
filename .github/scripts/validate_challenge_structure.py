@@ -84,7 +84,7 @@ def validate_challenge_folder(folder):
         print(f"ERROR: {folder} is missing required files: {', '.join(missing)}")
         return False
 
-    missing = [f for f in REQUIRED_DIRS if f not in files or not os.path.isdir(f)]
+    missing = [f for f in REQUIRED_DIRS if f not in files]
     if missing:
         print(f"ERROR: {folder} is missing required directories: {', '.join(missing)}")
         return False
