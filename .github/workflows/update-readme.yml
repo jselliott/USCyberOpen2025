@@ -21,12 +21,13 @@ jobs:
 
       - name: Run TOC update script
         run: python .github/scripts/update_readme.py
+      - name: Setup Git
+        uses: qoomon/actions--setup-git@v1
+        with:
+          user: bot
 
       - name: Commit updated README
         run: |
-          git config user.name "Jacob Elliott"
-          git config user.email "jacob@jseis.me"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/jselliott/USCyberOpen2025.git
           git add README.md
-          git diff --cached --quiet || git commit -m "Update README TOC"
-          git push origin HEAD:${{ github.ref_name }}
+          git commit -m "Chore: Update README TOC"
+          git push
