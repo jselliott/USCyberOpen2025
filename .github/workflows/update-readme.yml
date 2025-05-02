@@ -27,8 +27,10 @@ jobs:
           user: bot
 
       - name: Commit updated README
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/jselliott/USCyberOpen2025.git
+          git remote set-url origin https://x-access-token:$GH_PAT@github.com/jselliott/USCyberOpen2025.git
           git add README.md
           git commit -m "Chore: Update README TOC"
           git push
