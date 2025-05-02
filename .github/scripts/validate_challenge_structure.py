@@ -34,6 +34,9 @@ def list_files_one_level(root_folder):
         for name in filenames:
             full_path = os.path.relpath(os.path.join(dirpath, name), root_folder)
             result.append(full_path)
+        for name in dirnames:
+            full_path = os.path.relpath(os.path.join(dirpath, name), root_folder)
+            result.append(full_path)
     return result
 
 def validate_challenge_yaml(data):
