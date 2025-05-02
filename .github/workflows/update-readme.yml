@@ -25,8 +25,8 @@ jobs:
       - name: Commit updated README
         run: |
           git config user.name "Jacob Elliott"
-          git config user.email "coachelliott@uscybergames.org"
+          git config user.email "jacob@jseis.me"
           git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/jselliott/USCyberOpen2025.git
           git add README.md
           git diff --cached --quiet || git commit -m "Update README TOC"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
