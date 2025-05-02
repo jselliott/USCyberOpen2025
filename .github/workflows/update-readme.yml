@@ -24,8 +24,9 @@ jobs:
 
       - name: Commit updated README
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "Jacob Elliott"
+          git config user.email "coachelliott@uscybergames.org"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/jselliott/USCyberOpen2025.git
           git add README.md
-          git diff --cached --quiet || git commit -m "Manually updated README table of contents"
+          git diff --cached --quiet || git commit -m "Update README TOC"
           git push
