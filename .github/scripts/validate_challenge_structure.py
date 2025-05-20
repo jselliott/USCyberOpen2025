@@ -53,18 +53,18 @@ def validate_challenge_yaml(data):
     
     for field in required_fields:
         if field not in data:
-            print(f"ERROR: {yaml_path} is missing required field '{field}'")
+            print(f"ERROR: Challenge yaml is missing required field '{field}'")
             return False
 
     challenge_type = data.get("type","")
 
     if challenge_type == "" or challenge_type not in required_for_type:
-        print(f"ERROR: {yaml_path} has invalid challenge type '{challenge_type}'")
+        print(f"ERROR: Challenge yaml has invalid challenge type '{challenge_type}'")
         return False
         
     for field in required_for_type[challenge_type]:
         if field not in data:
-            print(f"ERROR: {yaml_path} is missing required field '{field}' for type '{challenge_type}'")
+            print(f"ERROR: Challenge yaml is missing required field '{field}' for type '{challenge_type}'")
             return False
     
     return True
