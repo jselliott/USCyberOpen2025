@@ -1,4 +1,5 @@
 name: Beg-o-Matic 3000
 author: Jacob Elliott
 description: Ever wish someone would just give you the flag?
-type: web
+type: http
+link: DYNAMIC
