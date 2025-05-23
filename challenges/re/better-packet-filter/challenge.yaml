@@ -1,0 +1,7 @@
+name: "Better Packet Filter"
+author: "Sadeli"
+difficulty: "Medium"
+description: "Reverse engineer a packet filter kernel module and leak the flag."
+type: "nc"
+host: "127.0.0.1"
+port: "5000"
