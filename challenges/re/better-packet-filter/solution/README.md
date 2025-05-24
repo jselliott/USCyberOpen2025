@@ -52,9 +52,11 @@ dmesg: klogctl: Operation not permitted
 
 The user is provided with a dockerfile and a script to run the same kernel and kernel module, but the flag is redacted.
 Loading up the kernel module in ghidra shows that it is an ARM64 kernel module.
+
 ![pic_01](screenshots/pic_01.png)
 
 Here we can see that the module initializes at `/proc/filter`.
+
 ![pic_01](screenshots/pic_02.png)
 
 And it has a single ioctl interface, with two commands: 
@@ -63,11 +65,13 @@ And it has a single ioctl interface, with two commands:
 
 ## `set_program`
 The function `set_program` accepts a single parameter: a pointer to userspace. It reads `0x10` bytes and makes sure the last 8 bytes (stored in `local_30`) is a `uint64_t` that's <= `0x1000`.
+
 ![pic_03](screenshots/pic_03.png)
 
 `local_30` is an integer is treated as the size for an allocation, stored in `__s`.
 Next, the initial first 8 bytes copied from userspace (stored in `local_38`) is treated as yet another userspace pointer, which the kernel reads `local_30` bytes from.
 Finally it sets `current_program` to that new allocation, and `DAT_00100dc8` to the size.
+
 ![pic_04](screenshots/pic_04.png)
 
 In summary, the user provides a pointer to a structure that looks like this:
@@ -83,14 +87,17 @@ The kernel modules reads `len` bytes from `program`, saves the program in `curre
 ## `should_drop`
 `should_drop` accepts a single parameter: a userspace pointer to a null-terminated string.
 It makes sure `current_program` is non-null, copies the string from the user, and invokes `spawn_filter_thread`.
+
 ![pic_05](screenshots/pic_05.png)
 
 `spawn_filter_thread` will just invoke `should_drop_inner` in a new thread, and wait for it to finish.
 It sends a pointer to the input argument.
+
 ![pic_06](screenshots/pic_06.png)
 
 `should_drop_inner` will read a file of up to 0x100 bytes, and provide it as input to `execute_filter` along with the `current_program` and the previously mentioned `current_program_len` at `DAT_00100dc8`.
 Then at the bottom, the `complete` call tells `spawn_filter_thread` that it's done executing.
+
 ![pic_07](screenshots/pic_07.png)
 
 It should be noted that normally, trying to read a file outside our privileges in a kernel module would fail (so we couldn't read `/flag.txt`)
@@ -99,9 +106,11 @@ That means that we can send files that we normally can't read.
 
 ## The Packet Filter Interpreter
 The interpreter creates some object in `local_40` and starts executing instructions, where each instruction is 4 bytes long.
+
 ![pic_08](screenshots/pic_08.png)
 
 The instruction evaluator gets some registers inside of the instruction object.
+
 ![pic_09](screenshots/pic_09.png)
 
 So now we know the general regsiters are laid out like this:
@@ -151,6 +160,7 @@ Further down we have comparison and branch instructions.
 
 And we also have load/store instructions. The packet is loaded at the start of memory, and the stack starts at the end of memory,
 similar to a heap and stack in a normal memory model.
+
 ![pic_12](screenshots/pic_12.png)
 
 ## Solving
