@@ -1,0 +1,6 @@
+name: "FGASLR"
+author: "LMS"
+difficulty: "Hard"
+description: "Fine Grained Address Space Layout Randomization"
+type: "PWN"
+link: ""

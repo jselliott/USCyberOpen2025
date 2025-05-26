@@ -1,0 +1,88 @@
+diff --git a/quickjs-atom.h b/quickjs-atom.h
+index 67e17e7..af774ff 100644
+--- a/quickjs-atom.h
++++ b/quickjs-atom.h
+@@ -61,13 +61,13 @@ DEF(const, "const")
+ DEF(enum, "enum")
+ DEF(export, "export")
+ DEF(extends, "extends")
+-DEF(import, "import")
++//DEF(import, "import")
+ DEF(super, "super")
+ /* FutureReservedWords when parsing strict mode code */
+ DEF(implements, "implements")
+ DEF(interface, "interface")
+ DEF(let, "let")
+-DEF(package, "package")
++//DEF(package, "package")
+ DEF(private, "private")
+ DEF(protected, "protected")
+ DEF(public, "public")
+diff --git a/quickjs-libc.c b/quickjs-libc.c
+index 6082b74..b3fe942 100644
+--- a/quickjs-libc.c
++++ b/quickjs-libc.c
+@@ -4508,3 +4508,4 @@ JSModuleDef *js_init_module_bjson(JSContext *ctx, const char *module_name)
+     JS_AddModuleExportList(ctx, m, js_bjson_funcs, countof(js_bjson_funcs));
+     return m;
+ }
++
+diff --git a/quickjs.c b/quickjs.c
+index b6277b5..83b05c1 100644
+--- a/quickjs.c
++++ b/quickjs.c
+@@ -34105,7 +34105,7 @@ static bool js_invalid_strict_name(JSAtom name) {
+     case JS_ATOM_implements: // future strict reserved words
+     case JS_ATOM_interface:
+     case JS_ATOM_let:
+-    case JS_ATOM_package:
++    //case JS_ATOM_package:
+     case JS_ATOM_private:
+     case JS_ATOM_protected:
+     case JS_ATOM_public:
+@@ -39923,6 +39923,27 @@ static JSValue js_array_at(JSContext *ctx, JSValueConst this_val,
+     return ret;
+ }
+ 
++static JSValue js_array_swap(JSContext *ctx, JSValueConst this_val,
++                                    int argc, JSValueConst *argv)
++{
++    if (argc < 2)
++        return JS_ThrowTypeError(ctx, "expected 2 arguments");
++
++    JSObject *p = JS_VALUE_GET_OBJ(this_val);
++    if (!JS_IsArray(this_val))
++         return JS_ThrowTypeError(ctx, "Not an array");
++
++    int64_t idx1, idx2;
++    if (JS_ToInt64(ctx, &idx1, argv[0]) || JS_ToInt64(ctx, &idx2, argv[1]))
++        return JS_EXCEPTION;
++
++    void* temp = *((void**)(p->u.array.u.ptr + idx1));
++    *((void**)p->u.array.u.ptr + idx1) = *((void**)p->u.array.u.ptr+idx2);
++    *((void**)p->u.array.u.ptr + idx2) = temp;
++
++    return JS_UNDEFINED;
++}
++
+ static JSValue js_array_with(JSContext *ctx, JSValueConst this_val,
+                              int argc, JSValueConst *argv)
+ {
+@@ -42439,6 +42460,7 @@ static const JSCFunctionListEntry js_iterator_helper_proto_funcs[] = {
+ 
+ static const JSCFunctionListEntry js_array_proto_funcs[] = {
+     JS_CFUNC_DEF("at", 1, js_array_at ),
++    JS_CFUNC_DEF("swap", 2, js_array_swap ),
+     JS_CFUNC_DEF("with", 2, js_array_with ),
+     JS_CFUNC_DEF("concat", 1, js_array_concat ),
+     JS_CFUNC_MAGIC_DEF("every", 1, js_array_every, special_every ),
+@@ -57716,6 +57738,9 @@ uintptr_t js_std_cmd(int cmd, ...) {
+     return rv;
+ }
+ 
++
+ #undef malloc
+ #undef free
+ #undef realloc
++
++

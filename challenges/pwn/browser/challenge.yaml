@@ -1,0 +1,6 @@
+name: "Fast Swap"
+author: "LMS"
+difficulty: "Hard"
+description: "Being tired of slow JavaScript array operations, I added an option to help swap elements faster — maybe too fast."
+type: "PWN"
+link: ""
