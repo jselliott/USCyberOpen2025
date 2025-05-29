@@ -1,0 +1,7 @@
+name: "Decryptonite"
+author: "BobbySinclusto"
+difficulty: "Medium+"
+description: "Your notes are secured with state-of-the-art end-to-end encryption. Just don't ask too many questions about what happens after they arrive."
+type: "nc"
+host: "127.0.0.1"
+port: "8888"
