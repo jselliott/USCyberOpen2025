@@ -1,0 +1,5 @@
+name: "Fraudster ඞ"
+author: "Chris Haller"
+difficulty: "Medium"
+description: "There are 1000 requests here with one fraudster. Find which flag retrieved was from the outlier system."
+type: "static"
