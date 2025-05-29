@@ -1,27 +1,38 @@
-from flask import Flask, jsonify
+from flask import Flask, send_file, jsonify, abort
+import os
+from mimetypes import guess_type
+from datetime import datetime
+import time
 
 app = Flask(__name__)
+FILE_DIR = "./files"
 
-@app.route('/list', methods=['GET'])
+@app.route("/")
 def list_files():
-    return jsonify([
-        {
-            "name": "example.txt",
-            "mime": "text/plain",
-            "size": 123,
-            "modified": "Fri May 24 12:34:56 UTC 2025"
-        },
-        {
-            "name": "malicious.class",
-            "mime": "application/java-vm",
-            "size": 456,
-            "modified": "Fri May 24 12:35:00 UTC 2025"
-        }
-    ])
+    files = []
+    for fname in os.listdir(FILE_DIR):
+        fpath = os.path.join(FILE_DIR, fname)
+        if os.path.isfile(fpath):
+            stat = os.stat(fpath)
+            files.append({
+                "name": fname,
+                "size": stat.st_size,
+                "modified": datetime.utcfromtimestamp(stat.st_mtime).strftime("%a %b %d %H:%M:%S UTC %Y"),
+                "mime": guess_type(fname)[0] or "application/octet-stream"
+            })
+    return jsonify(files)
 
-@app.route('/get/<string:filename>', methods=['GET'])
+@app.route("/delayme")
+def delay_me():
+    time.sleep(30)
+    return "DELAYED!"
+
+@app.route("/<path:filename>")
 def get_file(filename):
-    return "this is a test"
+    fpath = os.path.join(FILE_DIR, filename)
+    if not os.path.isfile(fpath):
+        return abort(404, description="File not found")
+    return send_file(fpath, mimetype=guess_type(filename)[0] or "application/octet-stream")
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Dialog, DialogTitle, DialogContent, DialogActions,
-  Button, TextField, MenuItem, IconButton, Snackbar, Alert
+  Button, TextField, MenuItem, IconButton, Snackbar, Alert, Backdrop,
+  CircularProgress
 } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
@@ -23,6 +24,7 @@ function App() {
   const [toastOpen, setToastOpen] = useState(false);
   const [copyModalOpen, setCopyModalOpen] = useState(false);
   const [copyTargetRepo, setCopyTargetRepo] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const showToast = (type,msg) => {
     setToastMessage(msg);
@@ -39,21 +41,25 @@ function App() {
   };
 
   const fetchRepos = async () => {
-    try {
-      const res = await axios.get('/api/repos/list');
-      const json = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
-      if (json.success) {
-        setRepos(json.data);
-      } else {
-        showToast("error",json.error || 'Failed to fetch repo list');
-        setRepos([]);
+      setLoading(true);
+      try {
+        const res = await axios.get('/api/repos/list');
+        const json = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+        if (json.success) {
+          setRepos(json.data);
+        } else {
+          showToast("error",json.error || 'Failed to fetch repo list');
+          setRepos([]);
+        }
+      } catch (e) {
+        showToast("error",'Error fetching repos');
+      } finally {
+        setLoading(false);
       }
-    } catch {
-      showToast("error",'Error fetching repos');
-    }
   };
 
   const fetchFiles = async (repoSlug) => {
+    setLoading(true);
     try {
       const res = await axios.get(`/api/repos/view/${repoSlug}`);
       const json = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
@@ -65,6 +71,8 @@ function App() {
       }
     } catch {
       showToast("error",'Error fetching files');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,6 +81,7 @@ function App() {
   }, []);
 
   const addRepo = async () => {
+    setLoading(true);
     try {
       const payload = {
         name: newRepo.name,
@@ -90,10 +99,13 @@ function App() {
       }
     } catch {
       showToast("error",'Error adding repository');
+    } finally {
+      setLoading(false);
     }
   };
 
   const upload = async () => {
+    setLoading(true);
     const form = new FormData();
     form.append('file', file);
     form.append('repo', selectedRepo);
@@ -109,10 +121,13 @@ function App() {
       }
     } catch {
       showToast("error",'Error uploading file');
+    } finally {
+      setLoading(false);
     }
   };
 
   const previewFile = async (filename) => {
+    setLoading(true);
     try {
       const res = await axios.get(`/api/repos/file/${selectedRepo}/${encodeURIComponent(filename)}`);
       const json = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
@@ -137,6 +152,8 @@ function App() {
       }
     } catch (err) {
       showToast("error",'Error loading file');
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -144,6 +161,9 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col font-sans">
+      <Backdrop open={loading} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className="bg-blue-700 text-white p-3 text-lg font-semibold shadow flex justify-between items-center">
         Repo Manager
         <div className="space-x-2">
@@ -308,6 +328,8 @@ function App() {
           <Button onClick={() => setCopyModalOpen(false)}>Cancel</Button>
           <Button
             onClick={async () => {
+              setLoading(true);
+              setCopyModalOpen(false);
               try {
                 const res = await axios.post('/api/repos/copy', {
                   source: selectedRepo,
@@ -317,12 +339,14 @@ function App() {
                 const json = res.data;
                 if (json.success) {
                   showToast("success",`Copied to ${copyTargetRepo}`);
-                  setCopyModalOpen(false);
                 } else {
                   showToast("error",json.error || 'Copy failed');
                 }
               } catch (e) {
                 showToast("error",'Error copying file');
+              } finally {
+                setLoading(false);
+          
               }
             }}
             variant="contained"

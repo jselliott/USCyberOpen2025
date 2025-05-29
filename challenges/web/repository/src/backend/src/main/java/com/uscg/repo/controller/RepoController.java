@@ -18,10 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
 import java.io.FileInputStream;
 import java.util.Base64;
 import java.util.ArrayList;
+import java.time.Instant;
 
 import jakarta.servlet.http.Part;
 
@@ -58,12 +60,13 @@ public class RepoController {
                 result.put("error", "Invalid repository");
                 return ResponseEntity.ok(result);
             }
-            Object plugin = Util.loadPlugin(r.type,r.config);
+            Object plugin = Util.loadPlugin(r);
             List<Map<String, Object>> data = (List<Map<String, Object>>) plugin.getClass().getMethod("getName").invoke(plugin);
             result.put("success", true);
             result.put("data", data);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
             result.put("error", e.getMessage());
             return ResponseEntity.ok(result);
@@ -80,7 +83,7 @@ public class RepoController {
                 result.put("error", "Invalid repository");
                 return ResponseEntity.ok(result);
             }
-            Object plugin = Util.loadPlugin(r.type,r.config);
+            Object plugin = Util.loadPlugin(r);
             Map<String, Object> response = (Map<String, Object>) plugin.getClass().getMethod("getFileContent", String.class).invoke(plugin, filename);
             
             boolean plugin_success = (boolean) response.get("success");
@@ -110,6 +113,7 @@ public class RepoController {
             return ResponseEntity.ok(result);
 
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
             result.put("error", e.getMessage());
             return ResponseEntity.ok(result);
@@ -127,10 +131,13 @@ public class RepoController {
         if (sourceRepo == null || targetRepo == null) return Map.of("success", false, "error", "Invalid repo(s)");
         if (targetRepo.type != "LocalStorage") return Map.of("success", false, "error", "Files can only be copied to local repos.");
         try {
-            Object sourcePlugin = Util.loadPlugin(sourceRepo.type,sourceRepo.config);
-            Object targetPlugin = Util.loadPlugin(targetRepo.type,targetRepo.config);
+            Object sourcePlugin = Util.loadPlugin(sourceRepo);
+            Object targetPlugin = Util.loadPlugin(targetRepo);
 
-            Path tempDir = Files.createTempDirectory("copy");
+            long timestamp = Instant.now().getEpochSecond();
+            Path tempDir = Paths.get("/tmp/repocopy_" + timestamp);
+            Files.createDirectories(tempDir);
+
             List<File> stagedFiles = new ArrayList<>();
 
             for (String file : files) {
@@ -153,18 +160,23 @@ public class RepoController {
 
                 stagedFiles.add(tempFile);
             }
-
+            boolean validated = true;
             for (File f : stagedFiles) {
                 String mime = Files.probeContentType(f.toPath());
                 if (!Util.isAllowedMime(mime)) {
-                    f.delete();
-                    return Map.of("success", false, "error", "Unsupported MIME type: "+mime);
+                    //f.delete();
+                    validated = false;
+                    continue;
                 }
 
                 try (InputStream in = new FileInputStream(f)) {
                     targetPlugin.getClass().getMethod("saveFile", String.class, InputStream.class).invoke(targetPlugin, f.getName(), in);
                 }
             }
+            if(!validated){
+                return Map.of("success", false, "error", "Unsupported or dangerous files detected.");
+            }
+
 
             return Map.of("success", true, "data", "File copy successful!");
         } catch (Exception e) {
@@ -218,7 +230,7 @@ public class RepoController {
                 return ResponseEntity.ok(Map.of("success", false, "error", "Unsupported MIME type: " + mimeType));
             }
 
-            Object plugin = Util.loadPlugin(r.type,r.config);
+            Object plugin = Util.loadPlugin(r);
 
             try (InputStream in = file.getInputStream()) {
                 response = (Map<String, Object>) plugin.getClass().getMethod("saveFile", String.class, InputStream.class).invoke(plugin, file.getSubmittedFileName(),in);

@@ -6,12 +6,13 @@ import java.net.URLClassLoader;
 import java.util.Map;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uscg.repo.model.Repo;
 
 public class Util {
 
-    public static Object loadPlugin(String type, String configstr) throws Exception {
+    public static Object loadPlugin(Repo r) throws Exception {
         String pluginRoot = "./plugins/storage";
-        String pluginClass = type;
+        String pluginClass = r.type;
         File pluginJarFile = new File(pluginRoot, pluginClass + ".jar");
 
         if (!pluginJarFile.exists()) throw new ClassNotFoundException("Plugin JAR not found");
@@ -25,10 +26,14 @@ public class Util {
         Object instance = cls.getDeclaredConstructor().newInstance();
 
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> config = mapper.readValue(configstr, Map.class);
+        Map<String, Object> config = mapper.readValue(r.config, Map.class);
 
-        cls.getMethod("configure", Map.class).invoke(instance, config);
-
+        if (r.type == "LocalStorage") {
+            cls.getMethod("configure", Map.class).invoke(instance, Map.of("path","./data/"+r.slug));
+        } else {
+            cls.getMethod("configure", Map.class).invoke(instance, config);
+        }
+        
         return instance;
     }
 

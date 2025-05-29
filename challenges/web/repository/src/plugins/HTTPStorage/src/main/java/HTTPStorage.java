@@ -15,7 +15,7 @@ public class HTTPStorage {
     public List<Map<String, Object>> getName() throws Exception {
         List<Map<String, Object>> result = new ArrayList<>();
         try {
-            URL endpoint = new URL(url + "/list");
+            URL endpoint = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) endpoint.openConnection();
             conn.setRequestMethod("GET");
     
@@ -42,7 +42,7 @@ public class HTTPStorage {
     }
 
     public Map<String, Object> getFileContent(String filename) throws Exception {
-        URL endpoint = new URL(url + "/get/" + filename);
+        URL endpoint = new URL(url + "/" + filename);
         HttpURLConnection conn = (HttpURLConnection) endpoint.openConnection();
         conn.setRequestMethod("GET");
         
