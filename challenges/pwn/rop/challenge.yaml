@@ -1,0 +1,7 @@
+name: "Multi Target"
+author: "LMS"
+difficulty: "Hard"
+description: "I have a super easy ROP vulnerability, I just can't remember what target I was trying to make it for. So why not just make it for all of them?"
+type: "nc"
+host: "127.0.0.1"
+port: "1341"

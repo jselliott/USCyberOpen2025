@@ -1,0 +1,7 @@
+name: "One Byte to Heap Them All"
+author: "LMS"
+difficulty: "Very Hard"
+description: "The magic of base64 encoding allows for all bytes to be allowed now! Everything from nullbytes to newlines, surely nothing is wrong, right?"
+type: "nc"
+host: "127.0.0.1"
+port: "1339"

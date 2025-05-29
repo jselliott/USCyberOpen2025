@@ -1,0 +1,7 @@
+name: "FGASLR"
+author: "LMS"
+difficulty: "Hard"
+description: "Fine Grained Address Space Layout Randomization"
+type: "nc"
+host: "127.0.0.1"
+port: "1340"

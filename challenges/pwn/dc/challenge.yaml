@@ -1,0 +1,7 @@
+name: "CVE-2024-61.."
+author: "LMS"
+difficulty: "medium"
+description: "An old consumer router with a custom web interface is still humming along, quietly exposing legacy code. You've obtained a copy of its firmware and uncovered a suspicious-looking HTTP handler buried in the static binary."
+type: "nc"
+host: "127.0.0.1"
+port: "1337"
