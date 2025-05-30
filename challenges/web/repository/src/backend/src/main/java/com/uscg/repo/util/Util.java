@@ -13,9 +13,12 @@ public class Util {
     public static Object loadPlugin(Repo r) throws Exception {
         String pluginRoot = "./plugins/storage";
         String pluginClass = r.type;
-        File pluginJarFile = new File(pluginRoot, pluginClass + ".jar");
+        
+        File base = new File(pluginRoot);
+        File pluginJarFile = new File(base, pluginClass + ".jar").getCanonicalFile();
 
-        if (!pluginJarFile.exists()) throw new ClassNotFoundException("Plugin JAR not found");
+        if (!pluginJarFile.getPath().startsWith(base.getCanonicalPath())) throw new ClassNotFoundException("Invalid plugin path.");
+        if (!pluginJarFile.exists()) throw new ClassNotFoundException("Plugin JAR not found.");
 
         URLClassLoader loader = new URLClassLoader(
         new URL[]{pluginJarFile.toURI().toURL()},

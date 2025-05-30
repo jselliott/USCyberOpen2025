@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.io.*;
+import java.util.*;
 
 public class GCSStorage {
     public void configure(Map<String, String> config) {
@@ -8,15 +9,22 @@ public class GCSStorage {
     }
 
     // Not yet implemented
-    public String getName() throws Exception {
-        return "[]";
+    public List<Map<String, Object>> getName() throws Exception {
+        List<Map<String, Object>> result = new ArrayList<>();
+        return result;
     }
 
-    public String getFileContent(String filename) {
-        return "";
+    public Map<String, Object> getFileContent(String filename) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("success",false);
+        result.put("error","This plugin is not yet implemented.");
+        return result;
     }
 
-    public String saveFile(String filename, InputStream in) {
-        return "Not Implemented";
+    public Map<String, Object> saveFile(String filename, InputStream in) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("success",false);
+        result.put("error","This plugin is not yet implemented.");
+        return result;
     }
 }

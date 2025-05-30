@@ -92,6 +92,7 @@ function App() {
       const json = res.data;
       if (json.success) {
         fetchRepos();
+        setNewRepo({ name: '', type: 'LocalStorage' });
         setRepoModalOpen(false);
         showToast("success",json.data);
       } else {
@@ -114,6 +115,7 @@ function App() {
       const json = res.data;
       if (json.success) {
         fetchFiles(selectedRepo);
+        setFile(null);
         setUploadModalOpen(false);
         showToast("success",json.data);
       } else {

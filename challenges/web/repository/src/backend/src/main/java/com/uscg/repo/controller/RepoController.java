@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.io.FileInputStream;
 import java.util.Base64;
 import java.util.ArrayList;
-import java.time.Instant;
 
 import jakarta.servlet.http.Part;
 
@@ -113,7 +112,6 @@ public class RepoController {
             return ResponseEntity.ok(result);
 
         } catch (Exception e) {
-            e.printStackTrace();
             result.put("success", false);
             result.put("error", e.getMessage());
             return ResponseEntity.ok(result);
@@ -134,10 +132,7 @@ public class RepoController {
             Object sourcePlugin = Util.loadPlugin(sourceRepo);
             Object targetPlugin = Util.loadPlugin(targetRepo);
 
-            long timestamp = Instant.now().getEpochSecond();
-            Path tempDir = Paths.get("/tmp/repocopy_" + timestamp);
-            Files.createDirectories(tempDir);
-
+            Path tempDir = Files.createTempDirectory("repocopy");
             List<File> stagedFiles = new ArrayList<>();
 
             for (String file : files) {
@@ -164,7 +159,7 @@ public class RepoController {
             for (File f : stagedFiles) {
                 String mime = Files.probeContentType(f.toPath());
                 if (!Util.isAllowedMime(mime)) {
-                    //f.delete();
+                    f.delete();
                     validated = false;
                     continue;
                 }

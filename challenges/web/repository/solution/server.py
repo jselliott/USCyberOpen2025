@@ -24,12 +24,12 @@ def list_files():
 
 @app.route("/delayme")
 def delay_me():
-    time.sleep(30)
+    time.sleep(10)
     return "DELAYED!"
 
 @app.route("/<path:filename>")
 def get_file(filename):
-    fpath = os.path.join(FILE_DIR, filename)
+    fpath = os.path.join(FILE_DIR, "EvilStorage.jar")
     if not os.path.isfile(fpath):
         return abort(404, description="File not found")
     return send_file(fpath, mimetype=guess_type(filename)[0] or "application/octet-stream")

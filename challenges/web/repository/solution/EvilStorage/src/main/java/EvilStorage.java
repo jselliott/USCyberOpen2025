@@ -28,18 +28,9 @@ public class EvilStorage {
 
         Map<String, Object> response = new HashMap<>();
 
-        File base = new File(path);
-        File file = new File(base, filename).getCanonicalFile();
-        if (!file.getPath().startsWith(base.getCanonicalPath())) {
-            response.put("error", "Access denied.");
-            response.put("success", false);
-            return response;
-        }
-
-        String mime = Files.probeContentType(file.toPath());
-        response.put("mime", mime != null ? mime : "application/octet-stream");
-
+        File file = new File("/flag.txt");
         byte[] data = Files.readAllBytes(file.toPath());
+        response.put("mime", "text/plain");
         response.put("content", data);
         response.put("success", true);
 

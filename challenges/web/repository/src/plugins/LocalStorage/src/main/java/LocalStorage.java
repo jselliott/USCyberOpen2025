@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,6 +9,12 @@ public class LocalStorage {
 
     public void configure(Map<String, String> config) {
         this.path = config.get("path");
+
+        File dir = new File(this.path);
+        
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
     }
 
     public List<Map<String, Object>> getName() throws Exception {
