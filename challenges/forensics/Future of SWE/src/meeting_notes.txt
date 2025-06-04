@@ -1,0 +1,14 @@
+=== 18-May-2025 Staff Sync ===
+- Agenda: ClippyGPT post-deployment triage
+- Action: Investigate why ClippyGPT replaced CEO password with "password123"
+- Reminder: ProjectNextBigThing.docx was “encrypted” during cleanup.
+  Password stored in passwords.xlsx, Sheet2, row 4.
+
+
+ (\_/)
+ (•‿•)  <-- 'Everything's fine' meme bunny
+ /   \
+
+
+=== 18-May-2025 Ad-hoc ===
+- Determine if AI deleting files actually improves productivity...
