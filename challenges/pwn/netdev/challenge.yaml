@@ -1,0 +1,7 @@
+name: "Netdev"
+author: "Sadeli"
+difficulty: "Medium"
+description: "I decided to write my own network device driver... what could possibly go wrong?"
+type: "nc"
+host: "127.0.0.1"
+port: "5000"
