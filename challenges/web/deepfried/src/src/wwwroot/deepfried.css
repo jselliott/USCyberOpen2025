@@ -1,0 +1,181 @@
+/* --- SYSTEM MELTDOWN (500 error) styles --- */
+.system-meltdown {
+    background: url('https://i.imgur.com/QtxfiWS.png') repeat center center fixed, #ff00ff;
+    background-blend-mode: screen;
+    color: #00ffea;
+    font-family: 'Comic Sans MS', 'Impact', 'Arial Black', cursive, sans-serif;
+    text-shadow: 3px 3px 0 #fff700, 6px 6px 0 #ff00ff, 8px 8px 12px #000;
+    filter: contrast(2.5) saturate(3) blur(1px) hue-rotate(90deg);
+    margin: 0;
+    padding: 0;
+    animation: spinbg 2s linear infinite;
+}
+@keyframes spinbg {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+.system-meltdown h1 {
+    font-size: 4em;
+    letter-spacing: 4px;
+    color: #ff00ff;
+    background: linear-gradient(90deg, #fff700 0%, #ff00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px #ff00ff) drop-shadow(0 0 10px #fff700);
+    margin: 0.5em 0;
+    animation: shake 0.5s infinite alternate;
+    text-align: center;
+}
+@keyframes shake {
+    0% { transform: rotate(-2deg) scale(1.05); }
+    100% { transform: rotate(2deg) scale(1.1); }
+}
+.system-meltdown pre {
+    background: rgba(255, 0, 255, 0.3);
+    border: 5px dashed #fff700;
+    border-radius: 20px;
+    padding: 1.5em;
+    margin: 2em auto;
+    max-width: 90vw;
+    font-size: 1.1em;
+    color: #ff00ff;
+    box-shadow: 0 0 40px 10px #00ffea, 0 0 10px 2px #fff700 inset;
+    filter: blur(0.5px) contrast(1.5);
+    overflow-x: auto;
+}
+.system-meltdown h2 {
+    font-size: 2.5em;
+    color: #fff700;
+    text-shadow: 0 0 10px #ff00ff, 0 0 5px #fff700;
+    margin: 1em 0 0.5em 0;
+    letter-spacing: 2px;
+    animation: rainbow 1.5s infinite alternate;
+    text-align: center;
+}
+@keyframes rainbow {
+    0% { color: #fff700; }
+    50% { color: #00ffea; }
+    100% { color: #ff00ff; }
+}
+.system-meltdown p {
+    font-size: 1.5em;
+    color: #00ffea;
+    text-shadow: 2px 2px 0 #ff00ff;
+    margin: 1em 0;
+    animation: pop 0.7s infinite alternate;
+}
+@keyframes pop {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.07); }
+}
+/* Deep Fried Meme-Lord CSS */
+body {
+    background: url('https://i.imgur.com/F67vQIj.png') repeat center center fixed, #ffef00;
+    background-blend-mode: multiply;
+    color: #ff3300;
+    font-family: 'Comic Sans MS', 'Impact', 'Arial Black', cursive, sans-serif;
+    text-shadow: 2px 2px 0 #fff700, 4px 4px 0 #ff3300, 6px 6px 8px #000;
+    filter: contrast(1.5) saturate(2) blur(0.5px);
+    margin: 0;
+    padding: 2.5vw 4vw 2.5vw 4vw;
+    box-sizing: border-box;
+}
+
+h1, h2 {
+    font-size: 3em;
+    letter-spacing: 2px;
+    color: #ff3300;
+    background: linear-gradient(90deg, #fff700 0%, #ff3300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px #ffef00) drop-shadow(0 0 5px #ff3300);
+    margin: 0.5em 0;
+    text-align: center;
+}
+
+form, .meme-list {
+    background: rgba(255, 255, 0, 0.7);
+    border: 5px double #ff3300;
+    border-radius: 20px;
+    padding: 2em;
+    margin: 2em auto;
+    max-width: 400px;
+    box-shadow: 0 0 40px 10px #ff3300, 0 0 10px 2px #fff700 inset;
+    filter: blur(0.5px) contrast(1.2);
+}
+
+input, select, button {
+    font-family: inherit;
+    font-size: 1.2em;
+    margin: 0.5em 0;
+    padding: 0.5em 1em;
+    border: 3px solid #ff3300;
+    border-radius: 10px;
+    background: #fff700;
+    color: #ff3300;
+    box-shadow: 0 0 10px #ff3300 inset;
+    outline: none;
+    filter: blur(0.2px) contrast(1.1);
+}
+
+button {
+    background: linear-gradient(90deg, #ff3300 0%, #fff700 100%);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px #ff3300);
+    transition: transform 0.1s, filter 0.1s;
+}
+button:hover {
+    transform: scale(1.1) rotate(-2deg);
+    filter: drop-shadow(0 0 20px #fff700) blur(1px);
+}
+
+a {
+    color: #ff3300;
+    font-weight: bold;
+    text-decoration: underline wavy #fff700;
+    font-size: 1.2em;
+    filter: blur(0.2px);
+    transition: color 0.2s, filter 0.2s;
+}
+a:hover {
+    color: #fff700;
+    filter: blur(1px) contrast(2);
+}
+
+img {
+    border: 8px ridge #ff3300;
+    border-radius: 30px;
+    box-shadow: 0 0 40px 10px #fff700, 0 0 10px 2px #ff3300 inset;
+    filter: contrast(2.5) saturate(3) blur(1.5px) drop-shadow(0 0 20px #ff3300);
+    margin: 1em 0;
+    max-width: 100%;
+    transition: filter 0.2s, transform 0.2s;
+}
+img:hover {
+    filter: contrast(4) saturate(5) blur(0.5px) drop-shadow(0 0 40px #ff3300);
+    transform: rotate(-2deg) scale(1.05);
+}
+
+::-webkit-scrollbar {
+    width: 16px;
+    background: #ff3300;
+}
+::-webkit-scrollbar-thumb {
+    background: #fff700;
+    border-radius: 8px;
+    border: 3px solid #ff3300;
+}
+
+@keyframes fry {
+    0% { filter: blur(0px) contrast(1) hue-rotate(0deg); }
+    50% { filter: blur(2px) contrast(3) hue-rotate(90deg); }
+    100% { filter: blur(0.5px) contrast(2) hue-rotate(0deg); }
+}
+
+.meme-list img {
+    animation: fry 1.5s infinite alternate cubic-bezier(.68,-0.55,.27,1.55);
+}
