@@ -1,0 +1,7 @@
+flask
+flask_login
+flask_cors
+bcrypt
+selenium
+undetected-chromedriver
+gunicorn
