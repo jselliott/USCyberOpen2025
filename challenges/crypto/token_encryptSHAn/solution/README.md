@@ -1,0 +1,1 @@
+Solution is to create a user which has the first part of "admin" name ex. "adm" and then use hash length extension to forge a new token ending with "user=adm<bytes>in" which when sanitized becomes "admin"
