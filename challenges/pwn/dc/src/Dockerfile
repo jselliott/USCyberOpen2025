@@ -27,5 +27,5 @@ USER ctf
 EXPOSE 1337
 
 # Use socat to bind port 1337 to your challenge
-CMD socat TCP-LISTEN:1337,reuseaddr,fork EXEC:"timeoute 60 /chall/run.sh"
+CMD socat TCP-LISTEN:1337,reuseaddr,fork EXEC:"timeout 60 /chall/run.sh"
 
