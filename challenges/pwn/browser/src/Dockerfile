@@ -12,6 +12,7 @@ RUN chmod +x /chall/qjs
 RUN chmod +x /chall/libc.so.6
 RUN chmod +x /chall/ld-linux-x86-64.so.2
 RUN chmod +x /chall/libm.so.6
+RUN chmod +x /chall/run.sh
 
 RUN mv /chall/flag.txt /
 RUN chmod 444 /flag.txt
@@ -28,5 +29,5 @@ EXPOSE 1338
 WORKDIR /chall
 
 # Use socat to bind port 1337 to your challenge
-CMD socat TCP-LISTEN:1338,reuseaddr,fork EXEC:"timeoute 60 /chall/run.sh"
+CMD socat TCP-LISTEN:1338,reuseaddr,fork EXEC:"timeout 60 /chall/run.sh"
 
