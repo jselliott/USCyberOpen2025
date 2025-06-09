@@ -34,7 +34,7 @@ def create_app():
 
     app = Flask(__name__, static_folder="static", template_folder="templates")
     # Generate a 16-character hexadecimal secret key at server start
-    app.secret_key = secrets.token_hex(16)
+    app.secret_key = os.environ.get("SECRET_KEY", "b30b019b0403192b")
     app.permanent_session_lifetime = timedelta(hours=6)
     app.config.update(SESSION_COOKIE_SAMESITE="None", SESSION_COOKIE_SECURE=True)
 
