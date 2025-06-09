@@ -5,9 +5,8 @@ COPY ./requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 RUN mkdir -p /app/users/admin && \
-    echo "mysupersecretadminpassword_asdfhwuirhfqcnapuhfpwq" > /app/users/admin/pass.txt
-
-COPY ./flag.txt /app/users/admin/flag.txt
+    echo "mysupersecretadminpassword_asdfhwuirhfqcnapuhfpwq" > /app/users/admin/pass.txt && \
+    ln -s /flag.txt /app/users/admin/flag.txt
 
 COPY ./app /app
 
