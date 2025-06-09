@@ -5,7 +5,7 @@ import sys
 
 BOARD_SIZE = 1_000_000
 SHIP_SIZES = [5, 4, 3, 3, 2]
-MAX_TURNS = 1000
+MAX_TURNS = 500
 
 seed = secrets.randbits(64)
 rng = random.Random(seed)
@@ -30,11 +30,10 @@ def place_computer_ships():
     board = set()
     for size in SHIP_SIZES:
         placed = False
-        while not placed:
-            r = rng.randint(0, BOARD_SIZE - 1)
-            c = rng.randint(0, BOARD_SIZE - 1)
-            d = 'H' if rng.random() < 0.5 else 'V'
-            placed = place_ship(board, r, c, size, d)
+        r = rng.randint(0, BOARD_SIZE - 1)
+        c = rng.randint(0, BOARD_SIZE - 1)
+        d = 'H' if rng.random() < 0.5 else 'V'
+        placed = place_ship(board, r, c, size, d)
     return board
 
 def parse_ship_input(data):
@@ -82,8 +81,8 @@ def start_game():
     computer_board = place_computer_ships()
     player_shots = set()
 
-    for turn in range(1, MAX_TURNS + 1):
-        print(f"Turn {turn} - Enter your shot as row,col (e.g. 12345,67890):")
+    for turn in range(0, MAX_TURNS):
+        print(f"Turn {turn+1} - Enter your shot as row,col (e.g. 12345,67890):")
         line = sys.stdin.readline()
         if not line:
             return
@@ -115,7 +114,6 @@ def start_game():
         print(f"Computer fires at {cr},{cc} - {result}")
 
     print("You ran out of moves. Game over.")
-    print("Press enter to try again or press Ctrl+D to quit.")
 
 
 print("== BATTLESHIP CTF ==")
@@ -125,3 +123,7 @@ print("Good luck.\n")
 
 while True:
     start_game()
+    print("Press enter to try again or type exit to quit")
+    cmd = input("> ")
+    if cmd.strip().lower() == "exit":
+        break
