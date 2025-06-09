@@ -8,6 +8,7 @@ import hashlib
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import List # Added for List response model
 import os # For file and directory operations
+from key import key
 
 app = FastAPI()
 
@@ -29,7 +30,6 @@ def sanitize_username(username):
     """Removes any characters that are not lowercase English letters."""
     return bytes(filter(lambda x: 96 < x < 123, username))
 
-key = os.urandom(32).hex()  # Generate a random 32-byte key for HMAC
 def hmac(token):
     return hashlib.sha256(key.encode() + token).digest()
 
