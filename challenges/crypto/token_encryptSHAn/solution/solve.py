@@ -7,7 +7,7 @@ import base64
 # Use a session object
 session = requests.Session()
 # url = "https://gcpayvzl.web.ctf.uscybergames.com"
-url = "http://localhost:80"  # Change to your local server if needed
+url = "https://hutyzile.web.ctf.uscybergames.com"  # Change to your local server if needed
 
 def register(username, password):
     data = {"username": username, "password": password}

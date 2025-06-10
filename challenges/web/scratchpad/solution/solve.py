@@ -2,7 +2,7 @@ import requests
 import string
 import random
 
-URL = "http://localhost:1337"
+URL = "https://rgtdqypw.web.ctf.uscybergames.com"
 
 folder = ""
 
@@ -13,7 +13,7 @@ for i in range(36):
         if R.get("good") == False:
             folder = folder + c
             break
-
+    print(folder)
 print("Recovered Admin Folder: %s" % folder)
 
 # Register new user

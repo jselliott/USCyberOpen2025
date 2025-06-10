@@ -1,0 +1,7 @@
+name: Lost At Sea
+author: Jacob Elliott
+difficulty: Easy
+description: |
+  It's like Battleship but way bigger...
+type: tcp
+link: DYNAMIC
