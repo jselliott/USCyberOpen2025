@@ -1,8 +1,7 @@
-name: Token EncryptSHAn
-author: BenderBot (Aidan Benderly)
-difficulty: Medium
+name: Lost At Sea
+author: Jacob Elliott
+difficulty: Easy
 description: |
-  I've vibe-coded a note taking service using the most secure token encryption scheme possible.
-  Can you read the notes of the `admin`?
-type: http
+  It's like Battleship but way bigger...
+type: tcp
 link: DYNAMIC
