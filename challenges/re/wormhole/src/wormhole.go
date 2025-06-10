@@ -2,153 +2,257 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 )
 
 const expectedLen = 28
 
-var resultChan = make(chan bool, expectedLen)
+var wormhole = make(chan bool, expectedLen)
+var onTarget = make(chan bool, expectedLen)
 
-var ch0 = make(chan rune)
-var ch1 = make(chan rune)
-var ch2 = make(chan rune)
-var ch3 = make(chan rune)
-var ch4 = make(chan rune)
-var ch5 = make(chan rune)
-var ch6 = make(chan rune)
-var ch7 = make(chan rune)
-var ch8 = make(chan rune)
-var ch9 = make(chan rune)
-var ch10 = make(chan rune)
-var ch11 = make(chan rune)
-var ch12 = make(chan rune)
-var ch13 = make(chan rune)
-var ch14 = make(chan rune)
-var ch15 = make(chan rune)
-var ch16 = make(chan rune)
-var ch17 = make(chan rune)
-var ch18 = make(chan rune)
-var ch19 = make(chan rune)
-var ch20 = make(chan rune)
-var ch21 = make(chan rune)
-var ch22 = make(chan rune)
-var ch23 = make(chan rune)
-var ch24 = make(chan rune)
-var ch25 = make(chan rune)
-var ch26 = make(chan rune)
-var ch27 = make(chan rune)
+var hyperspace0 = make(chan rune)
+var hyperspace1 = make(chan rune)
+var hyperspace2 = make(chan rune)
+var hyperspace3 = make(chan rune)
+var hyperspace4 = make(chan rune)
+var hyperspace5 = make(chan rune)
+var hyperspace6 = make(chan rune)
+var hyperspace7 = make(chan rune)
+var hyperspace8 = make(chan rune)
+var hyperspace9 = make(chan rune)
+var hyperspace10 = make(chan rune)
+var hyperspace11 = make(chan rune)
+var hyperspace12 = make(chan rune)
+var hyperspace13 = make(chan rune)
+var hyperspace14 = make(chan rune)
+var hyperspace15 = make(chan rune)
+var hyperspace16 = make(chan rune)
+var hyperspace17 = make(chan rune)
+var hyperspace18 = make(chan rune)
+var hyperspace19 = make(chan rune)
+var hyperspace20 = make(chan rune)
+var hyperspace21 = make(chan rune)
+var hyperspace22 = make(chan rune)
+var hyperspace23 = make(chan rune)
+var hyperspace24 = make(chan rune)
+var hyperspace25 = make(chan rune)
+var hyperspace26 = make(chan rune)
+var hyperspace27 = make(chan rune)
 
-func validator0() {
-	r := <-ch0
-	resultChan <- ((int(r)*5 - 85) % 256) == 74
+func coordinate0() {
+	r := <-hyperspace0
+	if ((int(r)*5 - 85) % 256) != 74 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator1() {
-	r := <-ch1
-	resultChan <- (((int(r) & 0x7F) << 1) ^ 0xd8) == 190
+func coordinate1() {
+	r := <-hyperspace1
+	if (((int(r) & 0x7F) << 1) ^ 0xd8) != 190 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator2() {
-	r := <-ch2
-	resultChan <- ((int(r) ^ 0x65 + 31) & 0xFF) == 89
+func coordinate2() {
+	r := <-hyperspace2
+	if ((int(r) ^ 0x65 + 31) & 0xFF) != 89 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator3() {
-	r := <-ch3
-	resultChan <- ((int(r) - 14) ^ 45) == 73
+func coordinate3() {
+	r := <-hyperspace3
+	if ((int(r) - 14) ^ 45) != 73 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator4() {
-	r := <-ch4
-	resultChan <- ((int(r) - 7) ^ 69) == 49
+func coordinate4() {
+	r := <-hyperspace4
+	if ((int(r) - 7) ^ 69) != 49 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator5() {
-	r := <-ch5
-	resultChan <- ((int(r)*5 - 50) % 256) == 234
+func coordinate5() {
+	r := <-hyperspace5
+	if ((int(r)*5 - 50) % 256) != 234 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator6() {
-	r := <-ch6
-	resultChan <- (((int(r) & 0x7F) << 1) ^ 0xf9) == 71
+func coordinate6() {
+	r := <-hyperspace6
+	if (((int(r) & 0x7F) << 1) ^ 0xf9) != 71 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator7() {
-	r := <-ch7
-	resultChan <- ((int(r)*5 - 47) % 256) == 32
+func coordinate7() {
+	r := <-hyperspace7
+	if ((int(r)*5 - 47) % 256) != 32 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator8() {
-	r := <-ch8
-	resultChan <- ((int(r) - 28) ^ 83) == 68
+func coordinate8() {
+	r := <-hyperspace8
+	if ((int(r) - 28) ^ 83) != 68 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator9() {
-	r := <-ch9
-	resultChan <- (((int(r) & 0x7F) << 1) ^ 0xfb) == 39
+func coordinate9() {
+	r := <-hyperspace9
+	if (((int(r) & 0x7F) << 1) ^ 0xfb) != 39 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator10() {
-	r := <-ch10
-	resultChan <- ((int(r) ^ 0x2e + 24) & 0xFF) == 96
+func coordinate10() {
+	r := <-hyperspace10
+	if ((int(r) ^ 0x2e + 24) & 0xFF) != 96 {
+		wormhole <- false
+	}
+	onTarget <- true
 }
-func validator11() {
-	r := <-ch11
-	resultChan <- ((int(r) - 25) ^ 47) == 55
+func coordinate11() {
+	r := <-hyperspace11
+	if ((int(r) - 25) ^ 47) != 55 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator12() {
-	r := <-ch12
-	resultChan <- ((int(r) ^ 0x47 + 41) & 0xFF) == 93
+func coordinate12() {
+	r := <-hyperspace12
+	if ((int(r) ^ 0x47 + 41) & 0xFF) != 93 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator13() {
-	r := <-ch13
-	resultChan <- ((int(r)*2 - 8) % 256) == 222
+func coordinate13() {
+	r := <-hyperspace13
+	if ((int(r)*2 - 8) % 256) != 222 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator14() {
-	r := <-ch14
-	resultChan <- ((int(r) - 24) ^ 90) == 10
+func coordinate14() {
+	r := <-hyperspace14
+	if ((int(r) - 24) ^ 90) != 10 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator15() {
-	r := <-ch15
-	resultChan <- ((int(r) - 26) ^ 32) == 58
+func coordinate15() {
+	r := <-hyperspace15
+	if ((int(r) - 26) ^ 32) != 58 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator16() {
-	r := <-ch16
-	resultChan <- ((int(r) ^ 0x9 + 38) & 0xFF) == 133
+func coordinate16() {
+	r := <-hyperspace16
+	if ((int(r) ^ 0x9 + 38) & 0xFF) != 133 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator17() {
-	r := <-ch17
-	resultChan <- ((int(r) ^ 0x1e + 44) & 0xFF) == 156
+func coordinate17() {
+	r := <-hyperspace17
+	if ((int(r) ^ 0x1e + 44) & 0xFF) != 156 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator18() {
-	r := <-ch18
-	resultChan <- ((int(r)*5 - 100) % 256) == 13
+func coordinate18() {
+	r := <-hyperspace18
+	if ((int(r)*5 - 100) % 256) != 13 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator19() {
-	r := <-ch19
-	resultChan <- ((int(r) ^ 0xcd + 25) & 0xFF) == 188
+func coordinate19() {
+	r := <-hyperspace19
+	if ((int(r) ^ 0xcd + 25) & 0xFF) != 188 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator20() {
-	r := <-ch20
-	resultChan <- ((int(r)*5 - 83) % 256) == 246
+func coordinate20() {
+	r := <-hyperspace20
+	if ((int(r)*5 - 83) % 256) != 246 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator21() {
-	r := <-ch21
-	resultChan <- (((int(r) & 0x7F) << 1) ^ 0x4f) == 167
+func coordinate21() {
+	r := <-hyperspace21
+	if (((int(r) & 0x7F) << 1) ^ 0x4f) != 167 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator22() {
-	r := <-ch22
-	resultChan <- ((int(r)*2 - 59) % 256) == 147
+func coordinate22() {
+	r := <-hyperspace22
+	if ((int(r)*2 - 59) % 256) != 147 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator23() {
-	r := <-ch23
-	resultChan <- (((int(r) & 0x7F) << 1) ^ 0x5b) == 241
+func coordinate23() {
+	r := <-hyperspace23
+	if (((int(r) & 0x7F) << 1) ^ 0x5b) != 241 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator24() {
-	r := <-ch24
-	resultChan <- ((int(r)*5 - 85) % 256) == 74
+func coordinate24() {
+	r := <-hyperspace24
+	if ((int(r)*5 - 85) % 256) != 74 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator25() {
-	r := <-ch25
-	resultChan <- ((int(r)*2 - 38) % 256) == 104
+func coordinate25() {
+	r := <-hyperspace25
+	if ((int(r)*2 - 38) % 256) != 104 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator26() {
-	r := <-ch26
-	resultChan <- ((int(r)*3 - 36) % 256) == 5
+func coordinate26() {
+	r := <-hyperspace26
+	if ((int(r)*3 - 36) % 256) != 5 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
-func validator27() {
-	r := <-ch27
-	resultChan <- (((int(r) & 0x7F) << 1) ^ 0x2d) == 253
+func coordinate27() {
+	r := <-hyperspace27
+	if (((int(r) & 0x7F) << 1) ^ 0x2d) != 253 {
+		wormhole <- false
+	}
+	time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
+	onTarget <- true
 }
 
 func main() {
@@ -159,78 +263,91 @@ func main() {
 
 	input := os.Args[1]
 	if len(input) != expectedLen {
-		fmt.Println("Incorrect length")
+		fmt.Println("You were lost in space!")
 		os.Exit(1)
 	}
 
-	go validator0()
-	go validator1()
-	go validator2()
-	go validator3()
-	go validator4()
-	go validator5()
-	go validator6()
-	go validator7()
-	go validator8()
-	go validator9()
-	go validator10()
-	go validator11()
-	go validator12()
-	go validator13()
-	go validator14()
-	go validator15()
-	go validator16()
-	go validator17()
-	go validator18()
-	go validator19()
-	go validator20()
-	go validator21()
-	go validator22()
-	go validator23()
-	go validator24()
-	go validator25()
-	go validator26()
-	go validator27()
+	// Start validation routines
+	fmt.Println("[+] Starting targeting subroutines")
+	go coordinate0()
+	go coordinate1()
+	go coordinate2()
+	go coordinate3()
+	go coordinate4()
+	go coordinate5()
+	go coordinate6()
+	go coordinate7()
+	go coordinate8()
+	go coordinate9()
+	go coordinate10()
+	go coordinate11()
+	go coordinate12()
+	go coordinate13()
+	go coordinate14()
+	go coordinate15()
+	go coordinate16()
+	go coordinate17()
+	go coordinate18()
+	go coordinate19()
+	go coordinate20()
+	go coordinate21()
+	go coordinate22()
+	go coordinate23()
+	go coordinate24()
+	go coordinate25()
+	go coordinate26()
+	go coordinate27()
 
-	ch0 <- rune(input[0])
-	ch1 <- rune(input[17])
-	ch2 <- rune(input[18])
-	ch3 <- rune(input[9])
-	ch4 <- rune(input[6])
-	ch5 <- rune(input[25])
-	ch6 <- rune(input[14])
-	ch7 <- rune(input[4])
-	ch8 <- rune(input[24])
-	ch9 <- rune(input[12])
-	ch10 <- rune(input[10])
-	ch11 <- rune(input[11])
-	ch12 <- rune(input[26])
-	ch13 <- rune(input[7])
-	ch14 <- rune(input[16])
-	ch15 <- rune(input[21])
-	ch16 <- rune(input[1])
-	ch17 <- rune(input[23])
-	ch18 <- rune(input[27])
-	ch19 <- rune(input[22])
-	ch20 <- rune(input[8])
-	ch21 <- rune(input[15])
-	ch22 <- rune(input[13])
-	ch23 <- rune(input[2])
-	ch24 <- rune(input[3])
-	ch25 <- rune(input[5])
-	ch26 <- rune(input[19])
-	ch27 <- rune(input[20])
+	fmt.Println("[+] Inputting hyperspace coordinates")
+	hyperspace0 <- rune(input[0])
+	hyperspace1 <- rune(input[17])
+	hyperspace2 <- rune(input[18])
+	hyperspace3 <- rune(input[9])
+	hyperspace4 <- rune(input[6])
+	hyperspace5 <- rune(input[25])
+	hyperspace6 <- rune(input[14])
+	hyperspace7 <- rune(input[4])
+	hyperspace8 <- rune(input[24])
+	hyperspace9 <- rune(input[12])
+	hyperspace10 <- rune(input[10])
+	hyperspace11 <- rune(input[11])
+	hyperspace12 <- rune(input[26])
+	hyperspace13 <- rune(input[7])
+	hyperspace14 <- rune(input[16])
+	hyperspace15 <- rune(input[21])
+	hyperspace16 <- rune(input[1])
+	hyperspace17 <- rune(input[23])
+	hyperspace18 <- rune(input[27])
+	hyperspace19 <- rune(input[22])
+	hyperspace20 <- rune(input[8])
+	hyperspace21 <- rune(input[15])
+	hyperspace22 <- rune(input[13])
+	hyperspace23 <- rune(input[2])
+	hyperspace24 <- rune(input[3])
+	hyperspace25 <- rune(input[5])
+	hyperspace26 <- rune(input[19])
+	hyperspace27 <- rune(input[20])
 
-	valid := true
+	fmt.Println("[+] Calculating vectors")
+
+	// Block while waiting for validation
 	for i := 0; i < expectedLen; i++ {
-		if !<-resultChan {
-			valid = false
-		}
+		<-onTarget
+		fmt.Print(".")
 	}
 
-	if valid {
-		fmt.Println("Correct!")
-	} else {
-		fmt.Println("Incorrect!")
+	fmt.Print("\n")
+
+	// Check the wormhole channel, if there is a false waiting then at least one of the validation functions failed
+	select {
+	case val := <-wormhole:
+		if !val {
+			fmt.Println("You were lost in space!")
+			os.Exit(1)
+		}
+
+	default:
+		fmt.Println("You made it home safely!")
+		os.Exit(0)
 	}
 }
