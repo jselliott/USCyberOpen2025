@@ -26,6 +26,4 @@ CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, fold
 INSERT INTO users (username, password, folder, filename) VALUES ('admin', 'temppassword', '$FOLDER','scratchpad.txt');
 EOF
 
-rm /flag.txt
-
 /usr/bin/supervisord -c /etc/supervisord.conf
