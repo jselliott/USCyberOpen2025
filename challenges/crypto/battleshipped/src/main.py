@@ -11,6 +11,8 @@ seed = secrets.randbits(64)
 rng = random.Random(seed)
 FLAG = open("/flag.txt","r").read()
 
+print(rng.random.__doc__)
+
 def place_ship(board, start_row, start_col, size, direction):
     positions = []
     for i in range(size):
