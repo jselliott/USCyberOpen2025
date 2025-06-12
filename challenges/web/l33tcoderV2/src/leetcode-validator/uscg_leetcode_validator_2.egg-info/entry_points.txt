@@ -1,0 +1,2 @@
+[console_scripts]
+uscg-leetcode-validator = uscg_leetcode_validator.main:main
