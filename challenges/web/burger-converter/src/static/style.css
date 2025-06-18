@@ -1,0 +1,22 @@
+/* style.css - extra styles for the SPA */
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #38bdf8, #dc2626);
+}
+
+.freedom-font {
+  font-family: 'Bangers', cursive;
+}
+
+.verified-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #22c55e;
+  color: #fff;
+  border-radius: 9999px;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.25rem;
+  z-index: 10;
+}

@@ -1,0 +1,5 @@
+name: "Redactables"
+author: "Chris Haller"
+difficulty: "Medium"
+description: "My friend redacted this file, but I think they made a mistake. Can you find it? The MD5 hash of the provided file is 05f6b8c32740c785e07432d5dbd7cb7e"
+type: "static"

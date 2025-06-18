@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Set static theme variables */
+:root {
+  --color-background: #f9f9f9;
+  --color-foreground: #1a1a1a;
+  --color-accent: #3b82f6; /* Tailwind blue-500 */
+  --font-sans: system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Apply base styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Standardize headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-foreground);
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.25rem;
+}
+
+/* Paragraphs and links */
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+/* Buttons (in case you don't style with Tailwind) */
+button {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2563eb; /* Tailwind blue-600 */
+}
+
+/* Forms */
+input, textarea {
+  background-color: white;
+  color: var(--color-foreground);
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+/* Spacing reset */
+* {
+  box-sizing: border-box;
+}

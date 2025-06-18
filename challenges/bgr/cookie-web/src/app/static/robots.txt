@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin
+
+# The robot vaccuum arrives at a locked door, which naturally he'll want to get inside
+# Crumb 2: jB0SDNSX2MwMG

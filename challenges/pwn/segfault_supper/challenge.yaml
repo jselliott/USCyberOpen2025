@@ -1,7 +1,0 @@
-name: "Segfault Supper"
-author: "BobbySinclusto"
-difficulty: "Medium"
-description: "Our blazing fast CLI-based food ordering system uses advanced technology to perform database operations in the background, delivering the fastest and most responsive food ordering experience ever! The service is so fast that you'll never need more than 30 seconds to order your food."
-type: "nc"
-host: "127.0.0.1"
-port: "1337"

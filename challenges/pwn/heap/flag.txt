@@ -1,1 +1,0 @@
-SVUSCG{maybe_we_should_have_verified_the_correctness_first}

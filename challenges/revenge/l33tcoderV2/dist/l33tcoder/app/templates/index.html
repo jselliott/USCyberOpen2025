@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>LeetCode Validator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css"></link>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/python/python.min.js"></script>
+    <script type="text/javascript">
+
+        var editor;
+
+        window.setupEditor = function () {
+            code = document.querySelector('#code');
+            editor = CodeMirror(document.querySelector('#editor'), {
+            lineNumbers: true,
+            tabSize: 2,
+            value: 'def myfunc(nums):\n\t# Do stuff\n\treturn nums'
+            });
+        };
+
+    </script>
+
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">L33tcode Test</h1>
+        <p>In order to be part of the US Cyber Team, you need to have strong programming skills. We will validate this by giving you a fun l33tcode task! Please write a python function below that accepts an unsorted list of numbers as input and returns the list sorted in ascending order.</p>
+        <p>Don't even think about just using <em>sorted()</em>. Each input undergoes strict validation with our proprietary testing libraries to prevent cheating.</p>
+        <form id="submissionForm">
+            <div class="mb-3">
+                <label for="editor" class="form-label">Paste Your Function</label>
+                <div id="editor" class="border rounded" style="min-height: 300px;"></div>
+            </div>
+            <script>
+              window.addEventListener("DOMContentLoaded", () => {
+                setupEditor();
+              });
+            </script>
+            <input type="hidden" name="options[DEBUG]" value="false">
+            <button type="submit" class="btn btn-primary">Run Tests</button>
+        </form>
+
+        <div id="outputContainer" class="mt-5 d-none">
+            <h2 class="h5">Test Output</h2>
+            <pre id="output" class="bg-light p-3 border rounded" style="white-space:pre-wrap;"></pre>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('submissionForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = document.getElementById('submissionForm');
+            const formData = new FormData(form);
+            const options = {};
+
+            for (const [key, value] of formData.entries()) {
+                const match = key.match(/^options\[(.+?)\]$/);
+                if (match) {
+                    const optionKey = match[1];
+                    options[optionKey] = value;
+                }
+            }
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.textContent = "Running...";
+
+            const response = await fetch('/api/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({code: editor.getValue(), options: options})
+            });
+
+            const data = await response.json();
+
+            const outputContainer = document.getElementById('outputContainer');
+            const output = document.getElementById('output');
+            output.textContent = data.output || "No output returned.";
+            outputContainer.classList.remove('d-none');
+            
+            submitButton.disabled = false;
+            submitButton.textContent = "Run Tests";
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

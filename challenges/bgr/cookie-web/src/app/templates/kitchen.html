@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index of /kitchen{% if current_path %}/{{ current_path }}{% endif %}/</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0;             /* Left‑aligned, no auto centering */
+        }
+        h1 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        table {
+            width: auto;           /* Size to content */
+            margin: 0;             /* Left‑aligned */
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.25rem 0.5rem;
+            text-align: left;
+        }
+        th {
+            border-bottom: 1px solid #000;
+        }
+        td.size {
+            text-align: right;
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+        th:first-child, td:first-child {
+            padding-right: 10rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Index of /kitchen{% if current_path %}/{{ current_path }}{% endif %}/</h1>
+        <table>
+            <tr><th>Name</th><th>Last modified</th><th>Size</th></tr>
+            {% if current_path %}
+                {% set parent = current_path.rsplit('/',1)[0] if '/' in current_path else '' %}
+                <tr>
+                    <td><a href="{{ url_for('kitchen', req_path=parent) }}">../</a></td>
+                    <td>-</td>
+                    <td class="size">-</td>
+                </tr>
+            {% endif %}
+            {% for entry in entries %}
+                <tr>
+                    <td><a href="{{ url_for('kitchen', req_path=entry.path) }}">{{ entry.name }}</a></td>
+                    <td>{{ entry.mtime }}</td>
+                    <td class="size">{{ entry.size }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>If You Give a Mouse a Cookie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="image-wrapper">
+        <img src="{{ url_for('static', filename='images/title.png') }}" alt="If You Give a Mouse a Cookie" class="title-image">
+    </div>
+    <div class="container">
+        {% if show_flag %}
+            <p class="lead">And if you give a mouse another cookie,</p>
+            <div class="flag-container">
+                <input type="text" readonly value="{{ flag }}" class="flag-box">
+            </div>
+        {% else %}
+            <p class="lead">If you give a mouse a cookie, he'll want to inspect its contents.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

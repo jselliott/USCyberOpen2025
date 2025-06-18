@@ -1,0 +1,22 @@
+Steps to making my Fully Layered And Golden (FLAG) Cookie Recipe:
+
+Ingredients:
+- 4 Crumbs 
+- Butter
+- Flour
+- Sugar
+
+Tools:
+- Cookie Editor
+- Large Mixing Bowl
+- Sheet Pan
+- Oven
+
+Instructions:
+1) Preheat oven to 320 degrees.
+2) Assemble all 4 crumbs in order from 1 to 4. 
+3) Place assembled crumbs into the oven for 20 minutes to bake into a cookie.
+4) Decode the assembled cookie using Base64 until nice and golden.
+4) Use Cookie Editor to edit the original cookie with our new assembled cookie.
+5) Refresh the home page.
+6) Enjoy your FLAG cookie~!

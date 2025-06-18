@@ -1,5 +1,0 @@
-name: "OLED Gadget Password Recovery"
-author: "Troy Callahan"
-difficulty: "Medium"
-description: "Help! My husband was in a motorcycle accident. I need to start paying some of his medical bills, but I can't log into anything because I don't know the password to his password manager! He kept it saved as an image that would appear on his little microcontroller gadget with an OLED screen that he takes everywhere with him. The trouble is that the screen to his gadget was broken in the accident and he never told me what the password was. I managed to get the ELF file he used to program his gadget - could you try and find the image? The image would display as soon as he turned it on and he was a big Pokemon nerd, if that helps."
-type: "static"

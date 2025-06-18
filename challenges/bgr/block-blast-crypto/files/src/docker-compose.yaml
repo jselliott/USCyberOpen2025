@@ -1,0 +1,6 @@
+services:
+  ecb-oracle:
+    build: .
+    ports:
+      - "1337:1337"  # or use a dynamic port if using CTFd dynamic Docker challenge plugin
+    restart: unless-stopped

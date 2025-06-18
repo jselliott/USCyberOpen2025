@@ -1,8 +1,0 @@
-name: Token EncryptSHAn
-author: BenderBot (Aidan Benderly)
-difficulty: Medium
-description: |
-  I've vibe-coded a note taking service using the most secure token encryption scheme possible.
-  Can you read the notes of the `admin`?
-type: http
-link: DYNAMIC

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Dashboard</h2>
+    <p>Hello, {{ username }}!</p>
+    {% if flag %}
+        <p><strong>Flag:</strong> {{ flag }}</p>
+    {% endif %}
+    <a href="/login">Log out</a>
+</body>
+</html>
