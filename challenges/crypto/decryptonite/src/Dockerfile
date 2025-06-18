@@ -1,15 +1,21 @@
+FROM ubuntu:16.04 as builder
+
+WORKDIR /build
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential libssl-dev
+COPY . .
+RUN make
+
+
 FROM ubuntu:16.04
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential libssl-dev gdbserver
-RUN apt-get -qq update && \
-    apt-get -qq install -y --no-install-recommends libssl-dev
 RUN useradd --system chal
-
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y openssl
 WORKDIR /chal
 
+COPY --from=builder /build/decryptonite_server .
+COPY --from=builder /build/decryptonite_client .
 COPY flag.txt /
 COPY start_server.sh ./
-COPY decryptonite_server ./
 
 # Ensure chal dir is read only
 RUN chown -R root:root ./* && \
