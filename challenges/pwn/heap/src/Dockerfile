@@ -1,7 +1,7 @@
 FROM debian:bookworm-slim
 
 RUN apt-get update && \
-    apt-get install -y socat
+    apt-get install -y ncat
 
 # Create a non-root user for running the challenge
 RUN useradd -m ctf
@@ -26,6 +26,4 @@ EXPOSE 1339
 
 WORKDIR /chall
 
-# Use socat to bind port 1337 to your challenge
-CMD socat TCP-LISTEN:1339,reuseaddr,fork EXEC:"timeout 60 /chall/binary"
-
+CMD ncat -lkp 1339 -c "timeout 60 /chall/binary"

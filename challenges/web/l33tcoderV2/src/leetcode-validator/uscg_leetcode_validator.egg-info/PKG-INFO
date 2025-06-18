@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: uscg_leetcode_validator
-Version: 1.0.8
+Version: 1.0.9
 Summary: Used to validate restricted python code inputs against test cases.
 Author: Jacob Elliott
 Author-email: coachelliott@uscybergames.org
