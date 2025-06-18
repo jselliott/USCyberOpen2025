@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import tempfile
 import subprocess
 import os
@@ -27,6 +27,18 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route("/simple/uscg-leetcode-validator/")
+def fake_repo():
+    return '''
+<html><body>
+<a href="/packages/uscg-leetcode-validator-1.0.9.tar.gz">uscg-leetcode-validator-1.0.9</a>
+</body></html>
+'''
+
+@app.route("/packages/uscg-leetcode-validator-1.0.9.tar.gz")
+def fake_package():
+    return send_file("/app/files/uscg-leetcode-validator-1.0.9.tar.gz")
 
 @app.route('/api/submit', methods=['POST'])
 def submit_code():
@@ -62,12 +74,12 @@ def submit_code():
 
         # Check for validator updates
         output = subprocess.run(
-            ["pip", "install", "--upgrade", "uscg-leetcode-validator-2"],
+            ["pip", "install", "--upgrade", "uscg-leetcode-validator"],
             capture_output=True,
             text=True
         )
 
-        #logging.info(output.stdout)
+        logging.info(output.stdout)
 
         # Run the validator
         result = subprocess.run(

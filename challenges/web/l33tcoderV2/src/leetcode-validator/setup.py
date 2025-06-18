@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="uscg_leetcode_validator_2",
-    version="1.0.0",
+    name="uscg_leetcode_validator",
+    version="1.0.9",
     packages=find_packages(),
     author="Jacob Elliott",
     author_email="coachelliott@uscybergames.org",

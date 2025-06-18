@@ -143,6 +143,7 @@ int main(int argc, char **argv)
     struct sockaddr_in client_addr; // Client address
     socklen_t sin_size;
 
+    /*
     // Force disable ASLR
     const int old_personality = personality(ADDR_NO_RANDOMIZE);
     if (!(old_personality & ADDR_NO_RANDOMIZE)) {
@@ -151,6 +152,7 @@ int main(int argc, char **argv)
             execv(argv[0], argv);
         }
     }
+    */
 
     // Clean up zombie processes
     struct sigaction sa;
