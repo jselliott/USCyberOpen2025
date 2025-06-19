@@ -1,0 +1,5 @@
+name: "Busy Beaver"
+author: "DrBHacking"
+difficulty: "Medium-Hard"
+description: "A fun example of the halting problem. Barney Beaver working on his dam to finish the honey-do list from Mrs. Belinda Beaver."
+type: "static"
