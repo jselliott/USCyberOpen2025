@@ -6,7 +6,7 @@
 	arm-linux-gnueabi-g++ challenge.cpp -o chal
 
 ## Run the Binary
-    \# If necessary, let qemu know where the ARM libraries are
+    # If necessary, let qemu know where the ARM libraries are
 	qemu-armel-static -L /usr/arm-linux-gnueabi/ chal 
 
 
